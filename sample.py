@@ -4,8 +4,7 @@ import re
 is_login = True
 UNAUTHORIZED = "401 Unauthorized"
 OK = "200 OK\r\n"
-KEY = "200 0K/key=c31b32364ce19ca8fcd150a417ecce58"
-FORMAT_GET = r'(GET/username=admin&passwd=2cea53149c42a690714f3f4a8a93647c)'
+FORMAT_GET = r'(GET/username=admin&passwd=c31b32364ce19ca8fcd150a417ecce58)'
 ID = r'(id=\d\d)'
 DATA_LIST = {'我在Android路上越走越远': '走到黑～',
              '推荐一个简单易用的组建化方案（支持多进程架构）': '组件化技术适用于需要多人协作的中大型项目，如果是一个人的项目且开发人员未实践过组件化方案则不建议采用。',
