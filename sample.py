@@ -1,13 +1,11 @@
 from socket import *
 import re
-import random
 
 is_login = True
 UNAUTHORIZED = "401 Unauthorized"
-OK = "200 OK"
+OK = "200 OK\r\n"
 KEY = "200 0K/key=c31b32364ce19ca8fcd150a417ecce58"
 FORMAT_GET = r'(GET/username=admin&passwd=2cea53149c42a690714f3f4a8a93647c)'
-FORMAT_GET_PIC = r'(GET/key=c31b32364ce19ca8fcd150a417ecce58/pic/pic=\d*)'
 ID = r'(id=\d\d)'
 DATA_LIST = {'我在Android路上越走越远': '走到黑～',
              '推荐一个简单易用的组建化方案（支持多进程架构）': '组件化技术适用于需要多人协作的中大型项目，如果是一个人的项目且开发人员未实践过组件化方案则不建议采用。',
@@ -35,7 +33,8 @@ def login():
         connectionSocket, addr = loginSocket.accept()
         message = connectionSocket.recv(1024).decode()
         if re.match(FORMAT_GET, message):
-            send_key_TCP(connectionSocket)
+            send_OK_TCP(connectionSocket)
+            send_data_TCP(connectionSocket)
         else:
             send_unauthorized_reply_TCP(connectionSocket)
 
@@ -44,13 +43,12 @@ def send_unauthorized_reply_TCP(socket):
     socket.send(UNAUTHORIZED.encode())
 
 
-def send_key_TCP(socket):
-    socket.send(str(DATA_LIST).encode())
+def send_data_TCP(socket):
+    socket.sendall(str(DATA_LIST).encode())
 
 
-def random_data():
-    random_num = random.randint(0, 10)
-    global DATA_LIST
+def send_OK_TCP(socket):
+    socket.send(OK.encode())
 
 
 def main():
